@@ -18,6 +18,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js"
+      defer
+    ></script>
+    <script src="script.js" defer></script>
     <style>
       :root {
         --bg: #0d1016;
@@ -1946,12 +1951,18 @@
               <div class="form-grid">
                 <div class="field">
                   <label for="n">Your Name</label
-                  ><input id="n" required placeholder="John Doe" />
+                  ><input
+                    id="n"
+                    name="name"
+                    required
+                    placeholder="John Doe"
+                  />
                 </div>
                 <div class="field">
                   <label for="e">Email Address</label
                   ><input
                     id="e"
+                    name="email"
                     required
                     type="email"
                     placeholder="john@example.com"
@@ -1959,7 +1970,7 @@
                 </div>
                 <div class="field">
                   <label for="t">Project Type</label
-                  ><select id="t">
+                  ><select id="t" name="project_type">
                     <option>Business Website</option>
                     <option>Landing Page</option>
                     <option>Portfolio</option>
@@ -1971,16 +1982,23 @@
                   <label for="d">Project Details</label
                   ><textarea
                     id="d"
+                    name="details"
                     required
                     placeholder="Tell me about your project goals, timeline, and key requirements..."
                   ></textarea>
                 </div>
               </div>
               <button class="btn primary" type="submit">
-                Continue in Gmail ↗
+                Send project request
               </button>
               <div class="form-status" id="status" role="status"></div>
-              <a class="form-fallback" id="emailFallback" hidden target="_blank" rel="noopener noreferrer">Gmail did not open? Click here to prepare your request.</a>
+              <a
+                class="form-fallback"
+                id="emailFallback"
+                hidden
+                target="_blank"
+                rel="noopener noreferrer"
+              >Email service unavailable? Prepare your request in Gmail.</a>
             </form>
           </div>
         </div>
@@ -2121,46 +2139,6 @@
         },
         { passive: true },
       );
-      document.getElementById("projectForm").onsubmit = (e) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const name = form.querySelector("#n").value.trim();
-        const email = form.querySelector("#e").value.trim();
-        const projectType = form.querySelector("#t").value;
-        const budget = form.querySelector("#b").value;
-        const details = form.querySelector("#d").value.trim();
-        const subject = `Project request from ${name}`;
-        const body = [
-          "New project request",
-          "",
-          `Name: ${name}`,
-          `Email: ${email}`,
-          `Project type: ${projectType}`,
-          `Estimated budget: ${budget}`,
-          "",
-          "Project details:",
-          details,
-        ].join("\n");
-        const composeUrl = new URL("https://mail.google.com/mail/");
-        composeUrl.searchParams.set("view", "cm");
-        composeUrl.searchParams.set("fs", "1");
-        composeUrl.searchParams.set("to", "dharmachelvanp@gmail.com");
-        composeUrl.searchParams.set("su", subject);
-        composeUrl.searchParams.set("body", body);
-
-        const fallback = document.getElementById("emailFallback");
-        fallback.href = composeUrl.toString();
-        fallback.hidden = false;
-        const gmailWindow = window.open(composeUrl.toString(), "_blank");
-        if (gmailWindow) {
-          gmailWindow.opener = null;
-          document.getElementById("status").textContent =
-            "Your request details are ready in Gmail. Review them and press Send to submit.";
-        } else {
-          document.getElementById("status").textContent =
-            "Your request was not sent yet. Allow pop-ups or use the link below to open Gmail.";
-        }
-      };
     </script>
   </body>
 </html>
