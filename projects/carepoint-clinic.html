@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CarePoint Clinic — quality healthcare, compassionate doctors and convenient online booking.">
+  <title>CarePoint Clinic | Quality Healthcare</title>
+
+  <!-- Fonts / icons only; no frontend framework is used. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#073f4d;
+      --navy-2:#0a5263;
+      --teal:#008c72;
+      --teal-soft:#e8faf5;
+      --ink:#0f172a;
+      --muted:#596779;
+      --line:#dce4ea;
+      --paper:#fff;
+      --lavender:#f7f6ff;
+      --lavender-2:#eef1ff;
+      --shadow:0 12px 32px rgba(20,45,62,.08);
+      --shadow-lg:0 20px 50px rgba(20,45,62,.14);
+      --radius:12px;
+      --radius-lg:16px;
+      --max:1180px;
+      --ease:cubic-bezier(.22,.75,.2,1);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Plus Jakarta Sans",Arial,sans-serif;
+      color:var(--ink);
+      background:var(--paper);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    body.modal-open{overflow:hidden}
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    section{scroll-margin-top:82px}
+    .container{width:min(var(--max),calc(100% - 36px));margin-inline:auto}
+    .material-symbols-outlined{
+      font-family:"Material Symbols Outlined";
+      font-weight:400;
+      font-style:normal;
+      font-size:20px;
+      line-height:1;
+      letter-spacing:normal;
+      text-transform:none;
+      display:inline-block;
+      white-space:nowrap;
+      word-wrap:normal;
+      direction:ltr;
+      -webkit-font-feature-settings:"liga";
+      -webkit-font-smoothing:antialiased;
+      font-feature-settings:"liga";
+    }
+
+    /* ================= HEADER ================= */
+    .site-header{
+      position:fixed;inset:0 0 auto;z-index:1000;
+      height:78px;background:rgba(255,255,255,.94);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid #e8edf1;
+      transition:box-shadow .3s ease;
+    }
+    .site-header.scrolled{box-shadow:0 5px 24px rgba(15,45,60,.08)}
+    .nav{
+      height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand img{width:104px;height:auto}
+    .desktop-nav{display:flex;align-items:center;gap:27px;margin-left:auto}
+    .desktop-nav a{
+      position:relative;font-size:11px;font-weight:600;color:#43515f;padding:29px 0;
+    }
+    .desktop-nav a::after{
+      content:"";position:absolute;left:0;right:100%;bottom:21px;height:2px;
+      background:var(--navy);border-radius:99px;transition:right .25s var(--ease);
+    }
+    .desktop-nav a:hover,.desktop-nav a.active{color:var(--navy);font-weight:700}
+    .desktop-nav a:hover::after,.desktop-nav a.active::after{right:0}
+    .header-actions{display:flex;align-items:center;gap:10px;margin-left:25px}
+    .btn{
+      border:0;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+      min-height:38px;padding:0 16px;border-radius:7px;font-size:10px;font-weight:700;
+      transition:transform .25s var(--ease),box-shadow .25s ease,background .25s ease,color .25s ease;
+    }
+    .btn-primary{background:#003f4c;color:white;box-shadow:0 5px 13px rgba(0,63,76,.14)}
+    .btn-primary:hover{background:#07596a;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,63,76,.2)}
+    .profile-btn{
+      width:29px;height:29px;padding:0;border-radius:50%;background:var(--navy);color:#fff;
+      border:0;display:grid;place-items:center
+    }
+    .profile-btn .material-symbols-outlined{font-size:16px}
+    .menu-btn{
+      display:none;border:0;background:transparent;color:var(--navy);padding:7px;border-radius:8px
+    }
+    .mobile-menu{
+      display:none;background:#fff;border-top:1px solid #e9eef2;
+      padding:15px 18px 20px;box-shadow:0 18px 30px rgba(20,45,62,.1)
+    }
+    .mobile-menu.open{display:block;animation:drop .25s var(--ease)}
+    .mobile-menu a{display:block;padding:12px 10px;font-size:13px;font-weight:600;border-radius:8px}
+    .mobile-menu a:hover,.mobile-menu a.active{background:var(--lavender);color:var(--navy)}
+    .mobile-menu .btn{width:100%;margin-top:10px}
+
+    /* ================= HERO ================= */
+    main{padding-top:78px}
+    .hero{background:var(--lavender);padding:28px 0 35px}
+    .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:28px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:6px;width:max-content;
+      background:#eaf1ff;border:1px solid #d8e3f4;color:#17465c;
+      border-radius:99px;padding:4px 9px;font-size:7px;font-weight:700;
+      margin-bottom:10px
+    }
+    .pulse{width:6px;height:6px;border-radius:50%;background:#1ca77e;box-shadow:0 0 0 3px rgba(28,167,126,.14)}
+    h1,h2,h3{font-family:"Manrope",sans-serif}
+    .hero h1{font-size:32px;line-height:1.08;letter-spacing:-.03em;margin:0 0 8px;font-weight:800}
+    .hero h1 span{display:block}
+    .hero-copy{font-size:9.5px;line-height:1.55;color:#596777;max-width:430px;margin:0}
+    .hero-actions{display:flex;gap:8px;margin:16px 0}
+    .btn-secondary{background:#fff;color:var(--navy);border:1px solid #d5e0e6}
+    .btn-secondary:hover{background:#f2f8fa;transform:translateY(-2px);box-shadow:0 6px 16px rgba(20,45,62,.08)}
+    .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:430px}
+    .trust-card{display:flex;gap:7px;align-items:center;background:#fff;border:1px solid #e3e9ed;border-radius:7px;padding:7px 8px;min-height:40px}
+    .trust-icon{width:23px;height:23px;border-radius:5px;display:grid;place-items:center;background:#f1f5ff;color:#264f62;flex:0 0 auto}
+    .trust-icon.green{background:#e6fbf3;color:#008c72}
+    .trust-icon.blue{background:#eaf7ff;color:#14739a}
+    .trust-card strong{font-size:6.7px;line-height:1.2;display:block}
+    .trust-card small{display:block;color:#788491;font-size:5.7px;line-height:1.25;margin-top:2px}
+    .hero-visual{position:relative;min-height:310px}
+    .hero-photo{
+      width:100%;height:310px;object-fit:cover;border-radius:9px;
+      box-shadow:var(--shadow-lg);border:1px solid #d8e0e6
+    }
+    .doctor-overlay{
+      position:absolute;left:0;right:0;bottom:0;color:#fff;padding:13px 15px;
+      border-radius:0 0 9px 9px;background:linear-gradient(180deg,transparent,rgba(0,34,43,.94))
+    }
+    .doctor-overlay .mini-tag{font-size:5.5px;background:rgba(255,255,255,.16);padding:3px 5px;border-radius:4px}
+    .doctor-overlay h3{font-size:10px;margin:8px 0 1px}
+    .doctor-overlay p{font-size:6px;margin:0;color:#d9e5e8}
+    .doctor-overlay .rating{float:right;font-size:6px;margin-top:-20px}
+    .floating-note{
+      position:absolute;right:-8px;top:9px;background:#fff;border-radius:6px;padding:5px 8px;
+      font-size:5.5px;font-weight:700;box-shadow:0 8px 18px rgba(0,0,0,.1)
+    }
+
+    /* ================= SHARED ================= */
+    .section{padding:36px 0}
+    .section.tint{background:var(--lavender)}
+    .section-header{text-align:center;max-width:650px;margin:0 auto 24px}
+    .section-kicker{
+      display:block;color:var(--teal);font-size:6.5px;font-weight:800;
+      letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px
+    }
+    .section-title{font-size:21px;line-height:1.2;letter-spacing:-.02em;margin:0 0 5px;font-weight:800}
+    .section-subtitle{font-size:7.5px;color:#687583;line-height:1.55;margin:0}
+    .reveal{opacity:1;transform:none}
+    .js-enabled .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.65,.25,1),transform .7s cubic-bezier(.2,.65,.25,1)}
+    .js-enabled .reveal.visible{opacity:1;transform:none}
+    .js-enabled .stagger > *{opacity:0;transform:translateY(22px)}
+    .js-enabled .stagger.visible > *{animation:rise .65s cubic-bezier(.2,.65,.25,1) forwards}
+    .js-enabled .stagger.visible > *:nth-child(2){animation-delay:.08s}
+    .js-enabled .stagger.visible > *:nth-child(3){animation-delay:.16s}
+    .js-enabled .stagger.visible > *:nth-child(4){animation-delay:.24s}
+    .js-enabled .stagger.visible > *:nth-child(5){animation-delay:.32s}
+    .js-enabled .stagger.visible > *:nth-child(6){animation-delay:.40s}
+
+    /* ================= ABOUT ================= */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .about-visual{position:relative}
+    .about-photo{height:260px;width:100%;object-fit:cover;border-radius:10px;box-shadow:var(--shadow)}
+    .award{
+      position:absolute;right:-6px;bottom:-12px;display:flex;align-items:center;gap:7px;
+      background:#fff;border-radius:7px;padding:7px 9px;box-shadow:var(--shadow-lg);max-width:170px
+    }
+    .award-icon{width:27px;height:27px;background:var(--navy);color:#fff;border-radius:5px;display:grid;place-items:center}
+    .award strong{display:block;font-size:6.5px}
+    .award span{display:block;color:#687583;font-size:5.2px;line-height:1.3}
+    .about-copy .section-kicker{text-align:left}
+    .about-copy h2{font-size:22px;line-height:1.18;margin:0 0 9px}
+    .about-copy p{font-size:7.8px;line-height:1.65;color:#687583;margin:0 0 11px}
+    .pillars{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px}
+    .pillar{font-size:6.2px;font-weight:700;display:flex;gap:5px;align-items:flex-start}
+    .pillar .material-symbols-outlined{font-size:13px;color:var(--teal)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .stat{background:#fff;border:1px solid #e2e8ec;border-radius:7px;padding:8px;box-shadow:0 3px 12px rgba(20,45,62,.04)}
+    .stat strong{font:800 13px/1 "Manrope";color:var(--navy);display:block}
+    .stat span{font-size:5.5px;color:#687583}
+
+    /* ================= SERVICES ================= */
+    .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .service-card{
+      background:#fff;border:1px solid #e1e7ec;border-radius:8px;padding:13px;
+      min-height:128px;display:flex;flex-direction:column;justify-content:space-between;
+      box-shadow:0 3px 14px rgba(20,45,62,.035);
+      transition:transform .3s var(--ease),box-shadow .3s ease,border-color .3s ease
+    }
+    .service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:#cbdce2}
+    .service-icon{width:24px;height:24px;background:#eef2ff;color:var(--navy);border-radius:5px;display:grid;place-items:center;transition:.3s ease}
+    .service-card:hover .service-icon{background:var(--navy);color:#fff;transform:scale(1.06)}
+    .service-card h3{font-size:8px;margin:9px 0 4px}
+    .service-card p{font-size:6.4px;line-height:1.55;color:#707c88;margin:0}
+    .learn-more{border:0;background:transparent;padding:0;margin-top:8px;color:var(--navy);font-size:6px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+    .learn-more:hover{color:var(--teal)}
+    .learn-more .material-symbols-outlined{font-size:12px;transition:transform .2s}
+    .learn-more:hover .material-symbols-outlined{transform:translateX(3px)}
+
+    /* ================= DOCTORS ================= */
+    .doctor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .doctor-card{background:#fff;border:1px solid #dce5ea;border-radius:8px;overflow:hidden;box-shadow:0 4px 14px rgba(20,45,62,.05);transition:.3s var(--ease)}
+    .doctor-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .doctor-img-wrap{position:relative;height:175px;overflow:hidden}
+    .doctor-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+    .doctor-card:hover img{transform:scale(1.05)}
+    .doctor-label{position:absolute;left:8px;top:8px;background:rgba(255,255,255,.9);border-radius:5px;padding:3px 5px;font-size:5px;font-weight:700}
+    .doctor-body{padding:9px}
+    .doctor-body h3{font-size:8px;margin:0 0 1px}
+    .specialty{font-size:5.8px;color:var(--teal);font-weight:700;margin-bottom:5px}
+    .doctor-body p{font-size:5.8px;line-height:1.5;color:#6d7985;margin:0 0 8px}
+    .doctor-meta{font-size:5.2px;color:#687583;display:flex;align-items:center;gap:3px;margin-bottom:8px}
+    .doctor-meta .material-symbols-outlined{font-size:11px;color:var(--teal)}
+    .doctor-body .btn{width:100%;height:24px;min-height:24px;font-size:5.7px;border-radius:5px}
+
+    /* ================= BOOKING ================= */
+    .booking-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:center}
+    .booking-copy h2{font-size:21px;line-height:1.18;margin:0 0 7px}
+    .booking-copy p{font-size:7px;color:#687583;max-width:390px;margin:0 0 12px}
+    .booking-benefits{display:grid;gap:7px}
+    .benefit{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #e2e8ec;border-radius:6px;padding:7px}
+    .benefit .material-symbols-outlined{font-size:14px;color:var(--teal)}
+    .benefit strong{font-size:6px;display:block}
+    .benefit span{font-size:5.2px;color:#78838e}
+    .booking-card{background:#fff;border:1px solid #dde5ea;border-radius:9px;padding:11px;box-shadow:var(--shadow-lg)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:5.5px;font-weight:700;color:#526170}
+    .field input,.field select,.field textarea{
+      width:100%;border:1px solid #dbe3ea;background:#f9fbff;border-radius:5px;
+      padding:7px 8px;outline:none;font-size:6.3px;color:#172536;transition:border .2s,box-shadow .2s
+    }
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#72aebb;box-shadow:0 0 0 3px rgba(0,140,114,.08)}
+    .field textarea{min-height:52px;resize:vertical}
+    .form-note{font-size:5.2px;color:#83909b;margin:7px 0}
+    .booking-card .btn{width:100%;height:26px;min-height:26px;font-size:6px}
+    .success-message{display:none;margin-top:8px;padding:7px;border-radius:5px;background:#e9faf4;color:#087357;font-size:6px;font-weight:700}
+    .success-message.show{display:block;animation:rise .4s var(--ease)}
+
+    /* ================= REVIEWS ================= */
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .review-card{background:#fff;border:1px solid #dfe7eb;border-radius:8px;padding:12px;box-shadow:0 3px 12px rgba(20,45,62,.035)}
+    .stars{color:#0d8d76;font-size:8px;letter-spacing:1px}
+    .review-card p{font-size:6.3px;line-height:1.65;color:#677482;margin:7px 0 9px}
+    .reviewer{display:flex;align-items:center;gap:6px}
+    .avatar{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#e7f4f0;color:var(--teal);font-size:6px;font-weight:800}
+    .reviewer strong{font-size:5.8px;display:block}
+    .reviewer span{font-size:5px;color:#83909b}
+
+    /* ================= CONTACT ================= */
+    .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    .contact-card{background:#fff;border:1px solid #dfe7ec;border-radius:8px;padding:12px;text-align:center;transition:.25s var(--ease)}
+    .contact-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .contact-icon{width:25px;height:25px;margin:0 auto 7px;border-radius:50%;display:grid;place-items:center;background:#e9f7ff;color:#14739a}
+    .contact-card:nth-child(2) .contact-icon{background:#e7faf3;color:#008c72}
+    .contact-card:nth-child(3) .contact-icon{background:#eff0ff;color:#4d55a5}
+    .contact-card h3{font-size:6.7px;margin:0 0 4px}
+    .contact-card p{font-size:5.4px;line-height:1.5;color:#687583;margin:0}
+    .contact-card a{font-size:5.5px;font-weight:700;color:var(--navy)}
+    .emergency-strip{margin-top:10px;background:#e8fbf4;border:1px solid #ccefe2;border-radius:7px;padding:7px 10px;display:flex;align-items:center;justify-content:center;gap:9px}
+    .emergency-strip strong{font-size:6px}.emergency-strip span{font-size:5.4px;color:#63716f}.emergency-strip .btn{height:21px;min-height:21px;font-size:5.2px;padding:0 10px}
+
+    /* ================= FOOTER ================= */
+    footer{background:#fff;border-top:1px solid #e3e9ed;padding:24px 0 12px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:22px}
+    .footer-brand img{width:94px;margin-bottom:8px}
+    .footer-brand p{font-size:5.7px;line-height:1.6;color:#73808c;max-width:230px;margin:0 0 8px}
+    .socials{display:flex;gap:5px}
+    .socials a{width:22px;height:22px;border:1px solid #dce4e9;border-radius:50%;display:grid;place-items:center;color:#60717e;transition:.2s}
+    .socials a:hover{color:var(--navy);border-color:#9eb7c0;transform:translateY(-2px)}
+    .footer-col h3{font-size:6.2px;margin:0 0 7px}
+    .footer-col a{display:block;color:#71808d;font-size:5.4px;margin:4px 0}
+    .footer-col a:hover{color:var(--navy)}
+    .footer-bottom{border-top:1px solid #edf0f2;margin-top:18px;padding-top:9px;display:flex;justify-content:space-between;gap:10px;color:#87929c;font-size:4.9px}
+
+    /* ================= MODAL / TOAST ================= */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(6,30,39,.45);backdrop-filter:blur(4px);z-index:2000;display:none;place-items:center;padding:18px}
+    .modal-backdrop.open{display:grid;animation:fade .2s ease}
+    .modal{width:min(430px,100%);background:#fff;border-radius:12px;padding:17px;box-shadow:0 25px 80px rgba(0,0,0,.25);position:relative;animation:modalIn .3s var(--ease)}
+    .modal-close{position:absolute;right:10px;top:10px;width:26px;height:26px;border:0;border-radius:50%;background:#f2f5f7;color:#455560;display:grid;place-items:center}
+    .modal h2{font-size:17px;margin:0 30px 5px}
+    .modal p{font-size:7px;color:#687583;line-height:1.6;margin:0 0 11px}
+    .modal .btn{width:100%;margin-top:9px}
+    .toast{
+      position:fixed;right:18px;bottom:18px;z-index:3000;background:#083f4c;color:#fff;
+      border-radius:7px;padding:9px 12px;font-size:7px;font-weight:700;box-shadow:var(--shadow-lg);
+      transform:translateY(20px);opacity:0;pointer-events:none;transition:.3s var(--ease)
+    }
+    .toast.show{transform:none;opacity:1}
+
+    /* ================= SCROLL TOP ================= */
+    .scroll-top{
+      position:fixed;right:17px;bottom:17px;width:32px;height:32px;border:0;border-radius:50%;
+      background:var(--navy);color:#fff;display:grid;place-items:center;z-index:900;
+      box-shadow:0 7px 18px rgba(0,63,76,.2);opacity:0;transform:translateY(10px);pointer-events:none;
+      transition:.25s var(--ease)
+    }
+    .scroll-top.show{opacity:1;transform:none;pointer-events:auto}
+    .scroll-top:hover{transform:translateY(-3px)}
+
+    /* ================= MOTION ================= */
+    @keyframes rise{to{opacity:1;transform:none}}
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+    @keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+    @keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+    .hero-content{animation:heroText .85s cubic-bezier(.2,.65,.25,1) both}
+    .hero-visual{animation:heroImage .9s .12s cubic-bezier(.2,.65,.25,1) both}
+    @keyframes heroText{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    @keyframes heroImage{from{opacity:0;transform:translateX(18px) scale(.98)}to{opacity:1;transform:none}}
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width:900px){
+      .desktop-nav{display:none}
+      .header-actions{margin-left:auto}
+      .menu-btn{display:grid;place-items:center}
+      .hero-grid,.about-grid,.booking-grid{grid-template-columns:1fr}
+      .hero{padding-top:25px}
+      .hero-visual{max-width:560px}
+      .service-grid{grid-template-columns:repeat(2,1fr)}
+      .doctor-grid,.review-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1.3fr 1fr 1fr}
+    }
+    @media (max-width:600px){
+      .container{width:min(var(--max),calc(100% - 26px))}
+      .site-header,.nav{height:68px}
+      main{padding-top:68px}
+      .brand img{width:94px}
+      .header-actions{gap:5px}
+      .header-actions .btn{display:none}
+      .profile-btn{width:28px;height:28px}
+      .hero{padding:23px 0 28px}
+      .hero h1{font-size:29px}
+      .hero-copy{font-size:10px}
+      .hero-actions{flex-direction:column;align-items:stretch}
+      .trust-row{grid-template-columns:1fr}
+      .hero-visual,.hero-photo{height:280px;min-height:280px}
+      .section{padding:30px 0}
+      .section-title{font-size:19px}
+      .about-photo{height:240px}
+      .about-copy h2{font-size:20px}
+      .pillars,.stats{grid-template-columns:1fr 1fr}
+      .service-grid,.doctor-grid,.review-grid,.contact-grid{grid-template-columns:1fr}
+      .doctor-img-wrap{height:230px}
+      .form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .footer-brand{grid-column:1/-1}
+      .footer-bottom{flex-direction:column}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        scroll-behavior:auto!important;
+        animation-duration:.001ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.001ms!important;
+      }
+      .reveal,.stagger > *{opacity:1!important;transform:none!important}
+    }
+
+    /* ================= NORMAL VISION / ACCESSIBLE TYPE SCALE =================
+       The reference layout is preserved, but text and controls are enlarged
+       to a comfortable real-world website reading size. */
+    body{font-size:16px}
+    .container{width:min(var(--max),calc(100% - 40px))}
+    .desktop-nav{gap:30px}
+    .desktop-nav a{font-size:14px;padding:27px 0}
+    .desktop-nav a::after{bottom:18px}
+    .btn{min-height:44px;padding:0 20px;border-radius:8px;font-size:13px}
+    .profile-btn{width:38px;height:38px}
+    .profile-btn .material-symbols-outlined{font-size:21px}
+
+    .hero{padding:52px 0 58px}
+    .hero-grid{gap:46px}
+    .eyebrow{padding:7px 12px;font-size:11px;margin-bottom:15px}
+    .pulse{width:8px;height:8px}
+    .hero h1{font-size:52px;margin-bottom:15px}
+    .hero-copy{font-size:15px;line-height:1.7;max-width:590px}
+    .hero-actions{gap:12px;margin:25px 0}
+    .trust-row{gap:12px;max-width:590px}
+    .trust-card{gap:10px;border-radius:9px;padding:11px 12px;min-height:60px}
+    .trust-icon{width:34px;height:34px;border-radius:7px}
+    .trust-icon .material-symbols-outlined{font-size:20px}
+    .trust-card strong{font-size:12px}
+    .trust-card small{font-size:10px;margin-top:3px}
+    .hero-visual{min-height:470px}
+    .hero-photo{height:470px;border-radius:12px}
+    .doctor-overlay{padding:22px 24px;border-radius:0 0 12px 12px}
+    .doctor-overlay .mini-tag{font-size:9px;padding:5px 7px}
+    .doctor-overlay h3{font-size:18px;margin:10px 0 2px}
+    .doctor-overlay p{font-size:11px}
+    .doctor-overlay .rating{font-size:11px;margin-top:-24px}
+    .floating-note{right:14px;top:15px;padding:8px 11px;font-size:10px}
+
+    .section{padding:68px 0}
+    .section-header{max-width:760px;margin-bottom:38px}
+    .section-kicker{font-size:11px;margin-bottom:8px}
+    .section-title{font-size:31px;margin-bottom:9px}
+    .section-subtitle{font-size:14px;line-height:1.7}
+
+    .about-grid{gap:55px}
+    .about-photo{height:410px;border-radius:12px}
+    .award{right:-10px;bottom:-16px;gap:10px;padding:11px 14px;max-width:270px}
+    .award-icon{width:40px;height:40px;border-radius:7px}
+    .award strong{font-size:11px}
+    .award span{font-size:9px}
+    .about-copy h2{font-size:32px;margin-bottom:14px}
+    .about-copy p{font-size:14px;line-height:1.75;margin-bottom:16px}
+    .pillars{gap:12px;margin-bottom:20px}
+    .pillar{font-size:12px;gap:7px}
+    .pillar .material-symbols-outlined{font-size:19px}
+    .stats{gap:10px}
+    .stat{border-radius:9px;padding:12px}
+    .stat strong{font-size:21px}
+    .stat span{font-size:10px}
+
+    .service-grid{gap:16px}
+    .service-card{border-radius:10px;padding:20px;min-height:210px}
+    .service-icon{width:40px;height:40px;border-radius:8px}
+    .service-icon .material-symbols-outlined{font-size:22px}
+    .service-card h3{font-size:17px;margin:13px 0 7px}
+    .service-card p{font-size:12px;line-height:1.65}
+    .learn-more{margin-top:14px;font-size:11px;gap:4px}
+    .learn-more .material-symbols-outlined{font-size:17px}
+
+    .doctor-grid,.review-grid{gap:16px}
+    .doctor-card{border-radius:10px}
+    .doctor-img-wrap{height:300px}
+    .doctor-label{left:12px;top:12px;padding:5px 8px;font-size:9px}
+    .doctor-body{padding:16px}
+    .doctor-body h3{font-size:17px}
+    .specialty{font-size:11px;margin-bottom:8px}
+    .doctor-body p{font-size:11px;line-height:1.65;margin-bottom:12px}
+    .doctor-meta{font-size:10px;gap:5px;margin-bottom:13px}
+    .doctor-meta .material-symbols-outlined{font-size:17px}
+    .doctor-body .btn{height:38px;min-height:38px;font-size:10px}
+
+    .booking-grid{gap:55px}
+    .booking-copy h2{font-size:31px;margin-bottom:11px}
+    .booking-copy p{font-size:13px;line-height:1.7;margin-bottom:18px}
+    .booking-benefits{gap:10px}
+    .benefit{gap:10px;border-radius:8px;padding:11px}
+    .benefit .material-symbols-outlined{font-size:21px}
+    .benefit strong{font-size:11px}
+    .benefit span{font-size:9px}
+    .booking-card{border-radius:12px;padding:20px}
+    .form-grid{gap:13px}
+    .field{gap:6px}
+    .field label{font-size:11px}
+    .field input,.field select,.field textarea{border-radius:7px;padding:11px 12px;font-size:12px}
+    .field textarea{min-height:90px}
+    .form-note{font-size:9px;margin:10px 0}
+    .booking-card .btn{height:44px;min-height:44px;font-size:11px}
+    .success-message{margin-top:10px;padding:10px;border-radius:7px;font-size:10px}
+
+    .review-card{border-radius:10px;padding:20px}
+    .stars{font-size:16px}
+    .review-card p{font-size:12px;line-height:1.7;margin:11px 0 14px}
+    .reviewer{gap:9px}
+    .avatar{width:36px;height:36px;font-size:10px}
+    .reviewer strong{font-size:11px}
+    .reviewer span{font-size:9px}
+
+    .contact-grid{gap:14px}
+    .contact-card{border-radius:10px;padding:19px}
+    .contact-icon{width:40px;height:40px;margin-bottom:10px}
+    .contact-icon .material-symbols-outlined{font-size:22px}
+    .contact-card h3{font-size:13px;margin-bottom:6px}
+    .contact-card p{font-size:10px;line-height:1.65}
+    .contact-card a{font-size:10px}
+    .emergency-strip{margin-top:14px;border-radius:9px;padding:11px 15px;gap:12px}
+    .emergency-strip strong{font-size:11px}
+    .emergency-strip span{font-size:10px}
+    .emergency-strip .btn{height:34px;min-height:34px;font-size:9px}
+
+    footer{padding:42px 0 18px}
+    .footer-grid{gap:35px}
+    .footer-brand img{width:125px;margin-bottom:12px}
+    .footer-brand p{font-size:10px;line-height:1.65;max-width:330px}
+    .socials{gap:7px}
+    .socials a{width:32px;height:32px}
+    .footer-col h3{font-size:12px;margin-bottom:10px}
+    .footer-col a{font-size:10px;margin:7px 0}
+    .footer-bottom{margin-top:30px;padding-top:14px;font-size:9px}
+
+    .modal{width:min(560px,100%);border-radius:14px;padding:24px}
+    .modal-close{width:34px;height:34px}
+    .modal h2{font-size:24px;margin-bottom:8px}
+    .modal p{font-size:12px;line-height:1.7;margin-bottom:15px}
+    .modal .btn{margin-top:13px}
+    .toast{right:22px;bottom:22px;padding:13px 17px;font-size:11px}
+    .scroll-top{right:22px;bottom:22px;width:42px;height:42px}
+
+    @media (max-width:900px){
+      .hero h1{font-size:44px}
+      .hero-visual,.hero-photo{height:400px;min-height:400px}
+      .section{padding:55px 0}
+      .about-photo{height:360px}
+    }
+
+    @media (max-width:600px){
+      .container{width:calc(100% - 28px)}
+      .site-header,.nav{height:70px}
+      main{padding-top:70px}
+      .desktop-nav{display:none}
+      .header-actions .btn{display:none}
+      .hero{padding:35px 0 40px}
+      .hero h1{font-size:37px}
+      .hero-copy{font-size:15px}
+      .hero-actions{flex-direction:column;align-items:stretch}
+      .trust-row{grid-template-columns:1fr}
+      .hero-visual,.hero-photo{height:330px;min-height:330px}
+      .section{padding:48px 0}
+      .section-title{font-size:26px}
+      .section-subtitle{font-size:13px}
+      .about-photo{height:300px}
+      .about-copy h2{font-size:27px}
+      .about-copy p{font-size:13px}
+      .pillar{font-size:11px}
+      .stats{grid-template-columns:1fr 1fr}
+      .service-card{min-height:190px}
+      .doctor-img-wrap{height:320px}
+      .form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .footer-brand{grid-column:1/-1}
+      .footer-bottom{font-size:8px}
+      .emergency-strip{flex-wrap:wrap;justify-content:flex-start}
+    }
+
+    /* ================= FINAL READABILITY + MOTION FIX =================
+       Comfortable real-world reading sizes. The layout remains responsive. */
+    :root{scroll-behavior:smooth}
+    html{font-size:16px}
+    body{font-size:16px;line-height:1.6}
+
+    .desktop-nav a,
+    .mobile-menu a{font-size:15px}
+    .btn{font-size:14px;font-weight:700;min-height:46px}
+    .profile-btn{width:42px;height:42px}
+    .profile-btn .material-symbols-outlined{font-size:22px}
+
+    .eyebrow{font-size:13px}
+    .hero h1{font-size:clamp(42px,5vw,58px);line-height:1.08}
+    .hero-copy{font-size:17px;line-height:1.75;max-width:640px}
+    .trust-card strong{font-size:14px}
+    .trust-card small{font-size:12px}
+
+    .section-kicker{font-size:13px}
+    .section-title{font-size:clamp(30px,3.2vw,38px);line-height:1.15}
+    .section-subtitle{font-size:16px;line-height:1.75}
+
+    .about-copy h2{font-size:clamp(30px,3vw,38px)}
+    .about-copy p{font-size:16px;line-height:1.8}
+    .pillar{font-size:14px;line-height:1.5}
+    .stat strong{font-size:24px}
+    .stat span{font-size:12px}
+
+    .service-card h3,
+    .doctor-body h3{font-size:19px}
+    .service-card p,
+    .doctor-body p,
+    .review-card p{font-size:15px;line-height:1.7}
+    .learn-more{font-size:14px}
+
+    .doctor-label{font-size:12px}
+    .specialty{font-size:13px}
+    .doctor-meta{font-size:12px}
+    .doctor-body .btn{font-size:13px;min-height:42px}
+
+    .booking-copy h2{font-size:clamp(30px,3vw,38px)}
+    .booking-copy p{font-size:16px;line-height:1.75}
+    .benefit strong{font-size:14px}
+    .benefit span{font-size:12px}
+    .field label{font-size:14px;font-weight:700}
+    .field input,.field select,.field textarea{font-size:15px;min-height:46px}
+    .field textarea{min-height:110px}
+    .form-note{font-size:12px}
+    .booking-card .btn{font-size:14px;min-height:46px}
+    .success-message{font-size:13px}
+
+    .stars{font-size:18px}
+    .reviewer strong{font-size:13px}
+    .reviewer span{font-size:11px}
+
+    .contact-card h3{font-size:16px}
+    .contact-card p,.contact-card a{font-size:14px;line-height:1.7}
+    .emergency-strip strong{font-size:14px}
+    .emergency-strip span{font-size:13px}
+
+    .footer-brand p,.footer-col a{font-size:13px;line-height:1.7}
+    .footer-col h3{font-size:15px}
+    .footer-bottom{font-size:12px}
+
+    .modal h2{font-size:28px}
+    .modal p{font-size:15px;line-height:1.75}
+    .toast{font-size:13px}
+    .scroll-top{width:46px;height:46px}
+
+    /* More obvious but still professional hover/micro-interactions */
+    .service-card,.doctor-card,.review-card,.contact-card,.booking-card,.trust-card{
+      transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+    }
+    .service-card:hover,.doctor-card:hover,.review-card:hover,.contact-card:hover,.trust-card:hover{
+      transform:translateY(-5px);
+    }
+    .btn{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .doctor-img-wrap img,.about-photo,.hero-photo{
+      transition:transform .6s cubic-bezier(.2,.65,.25,1);
+    }
+    .doctor-card:hover .doctor-img-wrap img,
+    .about-visual:hover .about-photo,
+    .hero-visual:hover .hero-photo{transform:scale(1.025)}
+
+    @media (max-width:900px){
+      .hero-copy{font-size:16px}
+      .section-title{font-size:32px}
+      .section-subtitle{font-size:15px}
+    }
+
+    @media (max-width:600px){
+      body{font-size:16px}
+      .container{width:calc(100% - 30px)}
+      .hero{padding:38px 0 44px}
+      .hero h1{font-size:clamp(36px,10vw,44px)}
+      .hero-copy{font-size:16px;line-height:1.75}
+      .section{padding:54px 0}
+      .section-title{font-size:30px}
+      .section-subtitle{font-size:15px}
+      .about-copy h2{font-size:29px}
+      .about-copy p{font-size:15px}
+      .pillar{font-size:13px}
+      .service-card h3,.doctor-body h3{font-size:18px}
+      .service-card p,.doctor-body p,.review-card p{font-size:15px}
+      .booking-copy p{font-size:15px}
+      .field label{font-size:14px}
+      .field input,.field select,.field textarea{font-size:16px}
+      .contact-card p,.contact-card a{font-size:14px}
+      .footer-brand p,.footer-col a{font-size:13px}
+      .footer-bottom{font-size:11px}
+      .js-enabled .reveal{transform:translateY(18px)}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .js-enabled .reveal,
+      .js-enabled .stagger > *{opacity:1!important;transform:none!important;animation:none!important}
+      .service-card:hover,.doctor-card:hover,.review-card:hover,.contact-card:hover,.trust-card:hover,
+      .btn:hover{transform:none}
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="CarePoint Clinic home">
+        <!-- REPLACE IMAGE: Logo -->
+        <img src="https://dummyimage.com/210x70/ffffff/073f4d&text=CarePoint+Clinic" alt="CarePoint Clinic logo">
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary" href="#appointment">Book Visit</a>
+        <button class="profile-btn" type="button" aria-label="Profile">
+          <span class="material-symbols-outlined">person</span>
+        </button>
+        <button class="menu-btn" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <nav aria-label="Mobile navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-primary" href="#appointment">Book Appointment</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow"><span class="pulse"></span>Trusted Neighborhood Healthcare Provider</div>
+          <h1>Quality Healthcare,<span>Made Simple.</span></h1>
+          <p class="hero-copy">At CarePoint Clinic, we combine patient-first medical care with world-class diagnostics and dedicated specialists. Experience comprehensive healthcare tailored for you and your family.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#appointment"><span class="material-symbols-outlined">calendar_month</span>Book Appointment</a>
+            <a class="btn btn-secondary" href="#services">Explore Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-card">
+              <div class="trust-icon"><span class="material-symbols-outlined">verified_user</span></div>
+              <div><strong>Board-Certified</strong><small>Medical Specialists</small></div>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon green"><span class="material-symbols-outlined">local_hospital</span></div>
+              <div><strong>Modern Facilities</strong><small>Advanced Diagnostics</small></div>
+            </div>
+            <div class="trust-card">
+              <div class="trust-icon blue"><span class="material-symbols-outlined">favorite</span></div>
+              <div><strong>Patient-Centered</strong><small>Care You Can Trust</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <!-- REPLACE IMAGE: Hero Doctor -->
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&q=85" alt="Doctor in a modern clinic">
+          <div class="floating-note">● Available Today</div>
+          <div class="doctor-overlay">
+            <span class="mini-tag">GENERAL PRACTICE</span>
+            <h3>Dr. Eliza Reid, MD</h3>
+            <p>Family Medicine · 12+ years experience</p>
+            <span class="rating">★ 4.9</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section tint" id="about">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <!-- REPLACE IMAGE: Consultation Room -->
+          <img class="about-photo" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=85" alt="Doctor consulting with a patient">
+          <div class="award">
+            <div class="award-icon"><span class="material-symbols-outlined">verified</span></div>
+            <div><strong>Accredited Excellence</strong><span>Exceeding national health benchmarks since 2014.</span></div>
+          </div>
+        </div>
+
+        <div class="about-copy reveal">
+          <span class="section-kicker">About CarePoint</span>
+          <h2>Dedicated to Exceptional Healthcare &amp; Compassionate Practice</h2>
+          <p>CarePoint Clinic was established with a singular vision: to eliminate the friction, anxiety, and cold impersonality often associated with modern medicine. We provide a restorative environment where diagnostics are thorough, physicians listen intently, and treatment plans are crafted collaboratively with our patients.</p>
+
+          <div class="pillars">
+            <div class="pillar"><span class="material-symbols-outlined">check_circle</span>Personalized Wellness Plans</div>
+            <div class="pillar"><span class="material-symbols-outlined">check_circle</span>Integrated Diagnostic Suites</div>
+            <div class="pillar"><span class="material-symbols-outlined">check_circle</span>Punctual Consultation Times</div>
+            <div class="pillar"><span class="material-symbols-outlined">check_circle</span>Direct Physician Access</div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><strong>10+</strong><span>Years Serving</span></div>
+            <div class="stat"><strong>15+</strong><span>Specialists</span></div>
+            <div class="stat"><strong>25k+</strong><span>Patients Treated</span></div>
+            <div class="stat"><strong>98%</strong><span>Satisfaction</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-kicker">Our Clinical Services</span>
+          <h2 class="section-title">Comprehensive Medical Care Under One Roof</h2>
+          <p class="section-subtitle">From regular preventative screenings to specialized therapies, our multidisciplinary team ensures your health remains safeguarded.</p>
+        </div>
+
+        <div class="service-grid stagger reveal">
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">health_and_safety</span></div>
+              <h3>General Consultation</h3>
+              <p>Preventative health checks, routine screenings, chronic disease management, and family medicine protocols.</p>
+            </div>
+            <button class="learn-more" data-service="General Consultation" data-description="Thorough physical evaluations, preventive screening guidance, lifestyle reviews and personalized care planning.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">child_care</span></div>
+              <h3>Pediatrics</h3>
+              <p>Newborn care, immunizations, developmental milestone tracking, and gentle, child-centric wellness visits.</p>
+            </div>
+            <button class="learn-more" data-service="Pediatrics" data-description="Child-focused wellness visits, routine development checks, immunization guidance and support for common childhood conditions.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">dermatology</span></div>
+              <h3>Dermatology</h3>
+              <p>Medical dermatology, skin cancer screenings, acne therapies, and state-of-the-art dermoscopic analysis.</p>
+            </div>
+            <button class="learn-more" data-service="Dermatology" data-description="Clinical assessment for common skin concerns, preventive checks and individualized treatment planning.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">dentistry</span></div>
+              <h3>Dental Care</h3>
+              <p>Preventive hygiene, restorative procedures, painless root canals, whitening, and orthodontic evaluations.</p>
+            </div>
+            <button class="learn-more" data-service="Dental Care" data-description="Preventive dental care, routine examinations, hygiene planning and restorative treatment coordination.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">accessibility_new</span></div>
+              <h3>Physiotherapy</h3>
+              <p>Post-operative rehabilitation, musculoskeletal therapy, and mobility-focused exercise plans.</p>
+            </div>
+            <button class="learn-more" data-service="Physiotherapy" data-description="Movement assessments and structured rehabilitation plans designed around mobility, strength and recovery goals.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+
+          <article class="service-card">
+            <div>
+              <div class="service-icon"><span class="material-symbols-outlined">science</span></div>
+              <h3>Diagnostics &amp; Lab</h3>
+              <p>In-house ultrasound, digital two-view X-rays, rapid pathology and comprehensive blood panels.</p>
+            </div>
+            <button class="learn-more" data-service="Diagnostics & Lab" data-description="Convenient diagnostic services with coordinated testing, clear results communication and clinician follow-up.">Learn More <span class="material-symbols-outlined">chevron_right</span></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DOCTORS ================= -->
+    <section class="section tint" id="doctors">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-kicker">Meet Our Specialists</span>
+          <h2 class="section-title">Distinguished Medical Leaders Committed to You</h2>
+          <p class="section-subtitle">Each physician brings decades of institutional training, empathetic care, and board-certified expertise.</p>
+        </div>
+
+        <div class="doctor-grid stagger reveal">
+          <article class="doctor-card">
+            <div class="doctor-img-wrap">
+              <!-- REPLACE IMAGE: Doctor 1 -->
+              <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=85" alt="Female physician">
+              <span class="doctor-label">● AVAILABLE TODAY</span>
+            </div>
+            <div class="doctor-body">
+              <h3>Dr. Eliza Reid, MD</h3>
+              <div class="specialty">Family Medicine</div>
+              <p>Patient-centered primary care with an emphasis on preventive health and long-term wellness.</p>
+              <div class="doctor-meta"><span class="material-symbols-outlined">schedule</span>Mon–Fri · 9:00 AM–4:00 PM</div>
+              <a class="btn btn-primary" href="#appointment">Book Appointment</a>
+            </div>
+          </article>
+
+          <article class="doctor-card">
+            <div class="doctor-img-wrap">
+              <!-- REPLACE IMAGE: Doctor 2 -->
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=85" alt="Male physician">
+              <span class="doctor-label">● AVAILABLE TODAY</span>
+            </div>
+            <div class="doctor-body">
+              <h3>Dr. Marcus Vance, MD, FACC</h3>
+              <div class="specialty">Cardiology</div>
+              <p>Experienced cardiac care focused on prevention, diagnosis and personalized treatment pathways.</p>
+              <div class="doctor-meta"><span class="material-symbols-outlined">schedule</span>Tue–Sat · 10:00 AM–5:00 PM</div>
+              <a class="btn btn-primary" href="#appointment">Book Appointment</a>
+            </div>
+          </article>
+
+          <article class="doctor-card">
+            <div class="doctor-img-wrap">
+              <!-- REPLACE IMAGE: Doctor 3 -->
+              <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=900&q=85" alt="Female specialist">
+              <span class="doctor-label">● AVAILABLE TODAY</span>
+            </div>
+            <div class="doctor-body">
+              <h3>Dr. Sarah Jenkins, MD, FAAD</h3>
+              <div class="specialty">Dermatology</div>
+              <p>Board-certified dermatology with a practical, evidence-led approach to skin health.</p>
+              <div class="doctor-meta"><span class="material-symbols-outlined">schedule</span>Mon–Thu · 9:00 AM–3:30 PM</div>
+              <a class="btn btn-primary" href="#appointment">Book Appointment</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= APPOINTMENT ================= -->
+    <section class="section tint" id="appointment">
+      <div class="container booking-grid">
+        <div class="booking-copy reveal">
+          <span class="section-kicker">Schedule Your Visit</span>
+          <h2>Fast &amp; Convenient Online Booking</h2>
+          <p>Select your preferred clinical department and physician, then reserve your time with our double-booking and cancellation confirmation system.</p>
+
+          <div class="booking-benefits">
+            <div class="benefit"><span class="material-symbols-outlined">event_available</span><div><strong>Real-time appointment requests</strong><span>Choose a preferred date and department.</span></div></div>
+            <div class="benefit"><span class="material-symbols-outlined">notifications_active</span><div><strong>Appointment reminders</strong><span>Simple confirmation and reminder flow.</span></div></div>
+            <div class="benefit"><span class="material-symbols-outlined">verified</span><div><strong>Easy clinic coordination</strong><span>Bring your details and visit preferences.</span></div></div>
+          </div>
+        </div>
+
+        <form class="booking-card reveal" id="bookingForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="e.g. Ashwin Kumar" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="department">Clinical Department</label>
+              <select id="department" required>
+                <option value="">Select department</option>
+                <option>General Consultation</option>
+                <option>Pediatrics</option>
+                <option>Dermatology</option>
+                <option>Dental Care</option>
+                <option>Physiotherapy</option>
+                <option>Diagnostics &amp; Lab</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="physician">Preferred Physician</label>
+              <select id="physician" required>
+                <option value="">Select physician</option>
+                <option>Dr. Eliza Reid, MD</option>
+                <option>Dr. Marcus Vance, MD, FACC</option>
+                <option>Dr. Sarah Jenkins, MD, FAAD</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="date">Select Date</label>
+              <input id="date" type="date" required>
+            </div>
+            <div class="field full">
+              <label for="time">Preferred Time</label>
+              <select id="time" required>
+                <option value="">Select a time</option>
+                <option>09:00 AM</option>
+                <option>10:00 AM</option>
+                <option>11:30 AM</option>
+                <option>01:00 PM</option>
+                <option>02:30 PM</option>
+                <option>04:00 PM</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="notes">Symptoms / Notes</label>
+              <textarea id="notes" placeholder="Briefly describe your symptoms, relevant requests, or routine checkup needs..."></textarea>
+            </div>
+          </div>
+          <p class="form-note">This demo form is frontend-only. No information is sent to a server.</p>
+          <button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">calendar_add_on</span>Confirm Appointment Request</button>
+          <div class="success-message" id="formSuccess">✓ Request captured successfully. This demo does not send data to a backend.</div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= REVIEWS ================= -->
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-kicker">Patient Stories</span>
+          <h2 class="section-title">Trusted by Thousands of Patients &amp; Families</h2>
+          <p class="section-subtitle">Real experiences from individuals and families who rely on CarePoint Clinic for compassionate, unified care.</p>
+        </div>
+
+        <div class="review-grid stagger reveal">
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“From the front desk to the physician, everyone was attentive and professional. The process felt organized without feeling rushed.”</p>
+            <div class="reviewer"><div class="avatar">ER</div><div><strong>Emily R.</strong><span>Verified patient</span></div></div>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“The pediatric team was patient and explained every step clearly. The clinic feels welcoming, calm and genuinely family-friendly.”</p>
+            <div class="reviewer"><div class="avatar">MK</div><div><strong>Michael K.</strong><span>Parent of patient</span></div></div>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“From booking the consultation to receiving the results, everything was coordinated smoothly. Highly recommended for regular care.”</p>
+            <div class="reviewer"><div class="avatar">TS</div><div><strong>Thomas S.</strong><span>Verified patient</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section tint" id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-kicker">Visit Our Clinic</span>
+          <h2 class="section-title">Conveniently Located in Central Medical District</h2>
+          <p class="section-subtitle">Easy-to-find location, accessible facilities, dedicated parking and flexible hours for your convenience.</p>
+        </div>
+
+        <div class="contact-grid stagger reveal">
+          <article class="contact-card">
+            <div class="contact-icon"><span class="material-symbols-outlined">location_on</span></div>
+            <h3>Clinic Address</h3>
+            <p>240 Medical Boulevard<br>Central Health District<br>Chennai, Tamil Nadu</p>
+            <a href="#" onclick="showToast('Directions are demo-only.');return false;">View Directions →</a>
+          </article>
+          <article class="contact-card">
+            <div class="contact-icon"><span class="material-symbols-outlined">phone_in_talk</span></div>
+            <h3>Phone Support</h3>
+            <p>+91 044-4276-3758<br>Mon–Sat, 8:00 AM–7:00 PM</p>
+            <a href="tel:+914442763758">Call the Clinic →</a>
+          </article>
+          <article class="contact-card">
+            <div class="contact-icon"><span class="material-symbols-outlined">mail</span></div>
+            <h3>Direct Email</h3>
+            <p>care@carepointclinic.example<br>Appointments &amp; support</p>
+            <a href="mailto:care@carepointclinic.example">Send Request →</a>
+          </article>
+          <article class="contact-card">
+            <div class="contact-icon"><span class="material-symbols-outlined">schedule</span></div>
+            <h3>Hours of Care</h3>
+            <p>Mon–Fri: 8:00 AM–8:00 PM<br>Saturday: 9:00 AM–5:00 PM<br>Sunday: Emergency only</p>
+            <a href="#appointment">Check Availability →</a>
+          </article>
+        </div>
+
+        <div class="emergency-strip reveal">
+          <span class="material-symbols-outlined">emergency</span>
+          <strong>Public Transit &amp; Step-Free Access</strong>
+          <span>Wheelchair-friendly entrance and accessible parking available.</span>
+          <button class="btn btn-primary" type="button" onclick="showToast('Accessibility information opened.');">Open Info</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <!-- REPLACE IMAGE: Footer Logo -->
+          <img src="https://dummyimage.com/210x70/ffffff/073f4d&text=CarePoint+Clinic" alt="CarePoint Clinic logo">
+          <p>Dedicated to compassionate, board-certified medical care. Combining clinical excellence, innovative services and convenience for every visit.</p>
+          <div class="socials">
+            <a href="#" aria-label="Facebook" onclick="showToast('Social link is demo-only.');return false;"><span class="material-symbols-outlined">public</span></a>
+            <a href="#" aria-label="Email" onclick="document.querySelector('a[href^=mailto]').click();return false;"><span class="material-symbols-outlined">mail</span></a>
+            <a href="#" aria-label="Phone" onclick="document.querySelector('a[href^=tel]').click();return false;"><span class="material-symbols-outlined">call</span></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Clinic Care</h3>
+          <a href="#services">Our Services</a>
+          <a href="#doctors">Our Physicians</a>
+          <a href="#appointment">Appointments</a>
+          <a href="#reviews">Patient Stories</a>
+        </div>
+        <div class="footer-col">
+          <h3>Patient Support</h3>
+          <a href="#contact">Contact Clinic</a>
+          <a href="#contact">Location &amp; Parking</a>
+          <a href="#appointment">Booking Help</a>
+          <a href="#home">Accessibility</a>
+        </div>
+        <div class="footer-col">
+          <h3>Clinic Schedule</h3>
+          <a href="#contact">Mon–Fri · 8 AM–8 PM</a>
+          <a href="#contact">Sat · 9 AM–5 PM</a>
+          <a href="#contact">Emergency Support</a>
+          <a href="tel:+914442763758">+91 044-4276-3758</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 CarePoint Clinic &amp; Health Network. All rights reserved.</span>
+        <span>Privacy · Terms · Notice of Non-Discrimination · Accessibility Statement</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SERVICE MODAL ================= -->
+  <div class="modal-backdrop" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close"><span class="material-symbols-outlined">close</span></button>
+      <span class="section-kicker">Clinical Service</span>
+      <h2 id="modalTitle">Service</h2>
+      <p id="modalDescription"></p>
+      <a class="btn btn-primary" href="#appointment" id="modalBook">Book This Service</a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="Scroll to top"><span class="material-symbols-outlined">arrow_upward</span></button>
+
+  <script>
+    // Enable JS-dependent reveal animations only after JavaScript is available.
+    document.documentElement.classList.add('js-enabled');
+
+    // ================= MOBILE NAVIGATION =================
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.querySelector('.material-symbols-outlined').textContent = open ? 'close' : 'menu';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.querySelector('.material-symbols-outlined').textContent = 'menu';
+      });
+    });
+
+    // ================= SMOOTH SCROLL =================
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // ================= ACTIVE NAVIGATION =================
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navLinks = [...document.querySelectorAll('.desktop-nav a, .mobile-menu a')];
+
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+      });
+    }, {rootMargin:'-35% 0px -55% 0px', threshold:0});
+
+    sections.forEach(section => navObserver.observe(section));
+
+    // ================= SCROLL REVEALS =================
+    const revealItems = [...document.querySelectorAll('.reveal')];
+
+    function revealElement(el){
+      el.classList.add('visible');
+    }
+
+    // Reveal items already on screen immediately, then observe the rest.
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            revealElement(entry.target);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.04,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealItems.forEach(el => revealObserver.observe(el));
+
+      // Safety pass: never leave an element hidden because of an unusual
+      // viewport/observer calculation.
+      setTimeout(() => {
+        revealItems.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.95) revealElement(el);
+        });
+      }, 1200);
+    } else {
+      revealItems.forEach(revealElement);
+    }
+
+    // ================= HEADER SHADOW / SCROLL TOP =================
+    const header = document.querySelector('.site-header');
+    const scrollTop = document.getElementById('scrollTop');
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+      scrollTop.classList.toggle('show', window.scrollY > 500);
+    }, {passive:true});
+
+    scrollTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // ================= SERVICE MODAL =================
+    const modal = document.getElementById('serviceModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalClose = document.getElementById('modalClose');
+    const modalBook = document.getElementById('modalBook');
+
+    function openServiceModal(title, description){
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      modal.classList.add('open');
+      document.body.classList.add('modal-open');
+      modalBook.focus();
+    }
+
+    function closeServiceModal(){
+      modal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('.learn-more').forEach(button => {
+      button.addEventListener('click', () => openServiceModal(button.dataset.service, button.dataset.description));
+    });
+    modalClose.addEventListener('click', closeServiceModal);
+    modal.addEventListener('click', event => { if (event.target === modal) closeServiceModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeServiceModal(); });
+    modalBook.addEventListener('click', closeServiceModal);
+
+    // ================= FRONTEND-ONLY BOOKING FORM =================
+    const bookingForm = document.getElementById('bookingForm');
+    const formSuccess = document.getElementById('formSuccess');
+    const dateInput = document.getElementById('date');
+
+    // Prevent selecting dates in the past.
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2,'0');
+    const dd = String(today.getDate()).padStart(2,'0');
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+    bookingForm.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!bookingForm.checkValidity()) {
+        bookingForm.reportValidity();
+        return;
+      }
+      formSuccess.classList.add('show');
+      showToast('Appointment request captured — demo only.');
+      bookingForm.reset();
+      dateInput.min = `${yyyy}-${mm}-${dd}`;
+    });
+
+    // ================= TOAST =================
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // ================= IMAGE FALLBACK =================
+    // Keeps image areas populated if a remote placeholder becomes unavailable.
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', () => {
+        if (img.dataset.fallback) return;
+        img.dataset.fallback = '1';
+        img.src = 'https://dummyimage.com/900x600/e9eef1/48606b&text=CarePoint+Clinic';
+      });
+    });
+  </script>
+<script>(function(){function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}function fix(i){if(i.dataset.fb)return;i.dataset.fb=1;var a=esc(i.alt||'Image');i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#4a5670'/><stop offset='1' stop-color='#1b2130'/></linearGradient></defs><rect width='800' height='600' fill='url(#g)'/><text x='400' y='310' font-family='sans-serif' font-size='32' fill='#e3e8f4' text-anchor='middle'>"+a+"</text></svg>")}document.querySelectorAll('img').forEach(function(i){i.addEventListener('error',function(){fix(i)});if(i.complete&&i.naturalWidth===0)fix(i)})})();</script></body>
+</html>
